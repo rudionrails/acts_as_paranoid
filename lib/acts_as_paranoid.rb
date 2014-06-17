@@ -1,5 +1,6 @@
 require 'acts_as_paranoid/core'
 require 'acts_as_paranoid/associations'
+require 'acts_as_paranoid/preloader_association'
 require 'acts_as_paranoid/validations'
 require 'acts_as_paranoid/relation'
 
@@ -49,6 +50,9 @@ ActiveRecord::Base.send :extend, ActsAsParanoid
 
 # Extend ActiveRecord::Base with paranoid associations
 ActiveRecord::Base.send :include, ActsAsParanoid::Associations
+
+# Override ActiveRecord::Associations behaviour
+ActiveRecord::Base::Preloader::Association.send :include, ActsAsParanoid::PreloaderAssociation
 
 # Override ActiveRecord::Relation's behavior
 ActiveRecord::Relation.send :include, ActsAsParanoid::Relation
